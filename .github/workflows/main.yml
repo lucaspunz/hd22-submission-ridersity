@@ -1,0 +1,42 @@
+# commented out file, so won't trigger anything
+# name: CI
+
+# on:
+#   push:
+#     branches: [main, master]
+#     paths: [back/**, .github/workflows/main.yml]
+# jobs:
+#   push:
+#     runs-on: self-hosted
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Build image
+#         run: docker build -t ridersity-api back/
+#         env:
+#           DOMAIN: "ridersity.tech"
+#           NETWORK: "traefik_proxy"
+#           mongo_url: ${{ secrets.MONGO_URL }}
+#           google_id: ${{ secrets.GOOGLE_ID }}
+#           google_secret: ${{ secrets.GOOGLE_SECRET }}
+#           front_url: "https://ridersity.tech/"
+#           JWT_access: ${{ secrets.JWT_ACCESS }}
+#           JWT_refresh: ${{ secrets.JWT_REFRESH }}
+#           JWT_state: ${{ secrets.JWT_STATE }}
+#           google_redirect: "https://api.ridersity.tech/auth/google/callback"
+#       - name: Docker Deploy
+#         run: docker-compose -f back/deploy.yml up -d
+#         env:
+#           DOMAIN: "ridersity.tech"
+#           NETWORK: "traefik_proxy"
+#           mongo_url: ${{ secrets.MONGO_URL }}
+#           google_id: ${{ secrets.GOOGLE_ID }}
+#           google_secret: ${{ secrets.GOOGLE_SECRET }}
+#           front_url: "https://ridersity.tech/"
+#           JWT_access: ${{ secrets.JWT_ACCESS }}
+#           JWT_refresh: ${{ secrets.JWT_REFRESH }}
+#           JWT_state: ${{ secrets.JWT_STATE }}
+#           google_redirect: "https://api.ridersity.tech/auth/google/callback"
+#       - name: Clean up images
+#         run: docker image prune -f
+#       - name: Clean up build
+#         run: docker builder prune -f --filter until=24h

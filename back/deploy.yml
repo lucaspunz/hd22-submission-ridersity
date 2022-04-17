@@ -1,0 +1,31 @@
+version: "3.3"
+
+services:
+  ridersity-api:
+    image: ridersity-api
+    container_name: "ridersity-api"
+    restart: unless-stopped
+    environment:
+      google_id: $google_id
+      google_secret: $google_secret
+      mongo_url: $mongo_url
+      front_url: $front_url
+      JWT_access: $JWT_access
+      JWT_refresh: $JWT_refresh
+      JWT_state: $JWT_state
+      google_redirect: $google_redirect
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik_proxy"
+      - "traefik.http.routers.ridersity-api.tls.certresolver=lets-encr"
+      - "traefik.http.routers.ridersity-api.entrypoints=https"
+      - "traefik.http.routers.ridersity-api.rule=Host(`api.$DOMAIN`)"
+      - "traefik.http.services.ridersity-api.loadbalancer.server.port=5001"
+    networks:
+      - traefik_proxy
+      - db
+networks:
+  traefik_proxy:
+    external: true
+  db:
+    external: true
